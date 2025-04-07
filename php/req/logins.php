@@ -1,0 +1,17 @@
+﻿<?php
+
+	include_once("includes/db.php");
+	include_once("settings.php");
+	
+	include_once("db.php");
+	$db = new database($obj->get("db_name"), $obj->get("db_server"), $obj->get("db_user"), $obj->get("db_password"), $obj->get("url_root"));	
+	 
+	 // first check there is no username with this name already registered.
+	 $db->setQuery("SELECT username, session_start, session_end, IP FROM `cc_sessions` ORDER BY `id` DESC LIMIT 0 , 20");
+	 $res = $db->loadResults();
+
+	for ($i = 0; $i < count($res); $i++) {
+		echo '<tr><td>' . $res[$i]->username . '</td><td>' . $res[$i]->session_start . '</td><td>' . $res[$i]->session_end . '</td><td>' . $res[$i]->IP . '</td></tr>';
+	 }
+
+?>
